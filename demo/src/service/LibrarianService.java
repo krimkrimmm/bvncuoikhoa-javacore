@@ -9,7 +9,6 @@ package service;
 import entities.Book;
 import util.FileUtil;
 import java.util.*;
-
 public class LibrarianService {
     public List<Book> books; // Khởi tạo danh sách books
     private static final String BOOK_DATA_FILE = "books.json";
@@ -26,11 +25,10 @@ public class LibrarianService {
 
     //quản lí sach
     public void loadBooks() {
-        List<Book> loadedBooks;
-        loadedBooks = fileUtil.readDataFromFile(BOOK_DATA_FILE,Book[].class);
+        List<Book> loadedBooks = fileUtil.readDataFromFile(BOOK_DATA_FILE, Book[].class);
         if (loadedBooks != null) {
             books = loadedBooks;
-       // } else {
+        } else {
             books = new ArrayList<>(); // Nếu không có sách, khởi tạo danh sách trống
         }
     }

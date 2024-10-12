@@ -4,6 +4,7 @@
 //+ Xem danh sách người dùng:Tìm kiếm người dùng theo ten(email), Xem danh sách tất cả người dùng và người quản lý trong hệ thống.
 //+ Tạo account quản lý: Cấp quyền người quản lý cho tài khoản người dùng mới.
 //+ Quản lý trạng thái người dùng(Khóa/Mở khóa tài khoản): Khóa tài khoản người dùng hoặc người quản lý vi phạm quy định, mở khóa tài khoản nếu cần.
+
 //- Thống kê và báo cáo: Thống kê số lượng sách mượn/trả, báo cáo người dùng.
 //- Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống
 package view;
@@ -12,20 +13,18 @@ import service.AccountService;
 import service.AdminService;
 import util.InputUtil;
 import java.util.InputMismatchException;
-
 import java.util.Scanner;
 
 public class AdminMenu {
     private final AdminService adminService;
     private final MainMenu mainMenu;
-
     public AdminMenu(AdminService adminService, MainMenu mainMenu) {
         this.adminService = adminService;
         this.mainMenu = mainMenu;
     }
-
     //Đăng nhập hệ thống với quyền Admin.
-    public void menu() {
+    public void menu()
+    {
         while (true) {
             System.out.println("------- PHẦN MỀM QUẢN LÝ THƯ VIỆN --------");
             System.out.println("1. Quản lý người dùng");
@@ -145,7 +144,7 @@ public class AdminMenu {
                     break;
                 case 3:
                     //Xem danh sách tất cả người dùng trong hệ thống
-
+                    UserManagementMenu();
                     break;
                 case 4:
                     //Xem danh sách tất cả người quản lý trong hệ thống
@@ -160,6 +159,8 @@ public class AdminMenu {
             }
         }
     }
+
+
     //Tạo account quản lý
     private void manageraccount(){
         while (true){

@@ -13,7 +13,8 @@ public class AccountService {
     private List<Account> accounts; // Danh sách tài khoản
     private static final String ACCOUNT_DATA_FILE = "accounts.json"; // Tên file để lưu tài khoản
     private final FileUtil<Account> fileUtil = new FileUtil<>();
-// Đối tượng để thao tác với file
+    // Đối tượng để thao tác với file
+
     private final Scanner scanner = new Scanner(System.in); // Đối tượng để nhập từ bàn phím
 
     public AccountService() {
@@ -22,7 +23,7 @@ public class AccountService {
     }
 
     private void loadAccounts() {
-        List<Account> loadedAccounts = fileUtil.readDataFromFile(ACCOUNT_DATA_FILE,Account.class);
+        List<Account> loadedAccounts = fileUtil.readDataFromFile(ACCOUNT_DATA_FILE, Account[].class);
         if (loadedAccounts != null) {
             accounts = loadedAccounts;
         }

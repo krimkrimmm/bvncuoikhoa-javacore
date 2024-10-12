@@ -60,7 +60,7 @@ public class AdminService {
         }
         return null;
     }
-
+    //Tạo thông tin chung cho người dùng
     public User createUserCommonInfo() {
         // TODO - nhập các thông tin cần tạo cho 1 user
         //  (cần chọn quyền của user vì đây là admin tạo user nên admin hoan toàn có thể chọn user họ tạo là một admin hay là 1 user bình thường)
@@ -137,7 +137,7 @@ public class AdminService {
 
         return user;
     }
-
+    //hiển thị Người dùng
     public void showUsers(List<User> users1) {
         printHeader();
         for (User user : users1) {
@@ -145,6 +145,7 @@ public class AdminService {
         }
     }
 
+    //in Đầu trang
     public void printHeader() {
         System.out.printf("%-5s%-30s%-30s%-20s%-20s%-10s%-10s%-10s%n", "Id", "Name", "Email", "Phone", "Address", "Role", "Balance", "Status");
         System.out.println("------------------------------------------------------------------------------------------------------------------------------");
@@ -154,6 +155,7 @@ public class AdminService {
         System.out.printf("%-5s%-30s%-30s%-20s%-20s%-10s%-10s%-10s%n", user.getId(), user.getName(), user.getEmail(), user.getPhone(), user.getAddress(), user.getRole(), user.getBalance(), user.getStatus());
     }
 
+    //cập nhật thông tin người dùng
     public void updateUserInformation(int idUserUpdate) {
         User user = findUserById(idUserUpdate);
         System.out.println("Mời bạn chọn phần thông tin muốn chỉnh sửa: ");
@@ -231,25 +233,23 @@ public class AdminService {
         showUser(user);
         saveUserData();// FILE - khi có thay đổi về list user, can luu vao file
     }
-
+    //hiển thị Người dùng
     public void showUser(User user) {
         printHeader();
         showUserDetail(user);
     }
-
+    //Lưu dữ liệu người dùng
     public void saveUserData() {
         fileUtil.writeDataToFile(users, USER_DATA_FILE);
     }
-
-
-
+    //tạo Admin
     public void createAdmin(String newAdminEmail, String newAdminName) {
         User user = new User(ADMIN_EMAIL, ADMIN_PASSWORD, Role.ADMIN);
         user.setId(0);
         users.add(user);
         saveUserData();
     }
-
+    //Tìm ID tự động hiện tại
     public void findCurrentAutoId() {
         int maxId = -1;
         for (User user : users) {
@@ -269,7 +269,7 @@ public class AdminService {
         }
         return null;
     }
-
+    //Cập nhật thông tin người dùng bởi admin
     public void updateUserInformationByAdmin() {
         System.out.println("Mời bạn nhập email tài khoản cần chỉnh sửa thông tin: ");
         String email = new Scanner(System.in).nextLine();
@@ -350,15 +350,15 @@ public class AdminService {
         saveUserData();
 
     }
-
+    //hiển thị Số dư
     public void showBalance() {
         User user = getLoggedInUser();
         System.out.println("Số dư tài khoản của khách hàng là " + user.getBalance());
     }
-
+    //Lịch sử giao dịch
     public void transactionHistory() {
     }
-
+    //người dùng bị khóa theo id
     public void lockedUserById(int idUserLock) {
 
         for (User user : users) {
@@ -372,7 +372,7 @@ public class AdminService {
             }
         }
     }
-
+    //đã mở khóa User By Id
     public void unlockedUserById(int idUserLock) {
         for (User user : users) {
             if (user.getId() == idUserLock) {
@@ -385,7 +385,7 @@ public class AdminService {
             }
         }
     }
-
+    //Cập nhật số dư người dùng
     public void updateUserBalance(int idUser, double amount) {
         for (User user : users) {
             if (user.getId() == idUser) {

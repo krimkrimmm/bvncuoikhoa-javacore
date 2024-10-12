@@ -4,6 +4,7 @@
 //2.Trang sách: Hiển thị chi tiết sách, bao gồm hình ảnh, mô tả, tác giả, số lượng còn lại và đánh giá từ người dùng.
 //3.Giỏ sách: Cho phép người dùng xem và quản lý các sách đã chọn để mượn.
 //4.Quản lý tài khoản: Người dùng có thể đăng ký, đăng nhập và quản lý thông tin cá nhân.
+
 //5.Quản lý sách: Người quản lý có thể thêm, chỉnh sửa và xóa sách.
 //6.Quản lý mượn/trả sách: Theo dõi và cập nhật trạng thái mượn/trả sách.
 //7.Quản lý người dùng: Quản lý thông tin và lịch sử mượn sách của người dùng.

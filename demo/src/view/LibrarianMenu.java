@@ -12,9 +12,9 @@ import util.InputUtil;
 public class LibrarianMenu {
     private final LibrarianService librarianService;
     private final MainMenu mainMenu;
-
     public LibrarianMenu(LibrarianService librarianService, MainMenu mainMenu) {
         this.librarianService = librarianService;
+
         this.mainMenu = mainMenu;
     }
 

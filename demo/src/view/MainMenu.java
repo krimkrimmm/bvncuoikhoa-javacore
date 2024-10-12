@@ -23,9 +23,38 @@ public class MainMenu {
     }
 
     public void menu() {
+        while (true) {
+            System.out.println("==================================================================");
+            System.out.println("------- PHẦN MỀM QUẢN LÝ THƯ VỆN--------");
+            System.out.println("1. Đăng nhập");
+            System.out.println("2. Đăng ký");
+            System.out.println("3. Thoát");
 
+            int choice = InputUtil.chooseOption("Xin mời chọn chức năng",
+                    "Chức năng là số dương từ 1 tới 3, vui lòng nhập lại: ", 1, 3);
+
+            switch (choice) {
+                case 1:
+                    Account loggedInCustomer = accountService.login();
+                    if (loggedInCustomer == null) {
+                        System.out.println("Login failed.");
+                    } else {
+                        mainmenu(loggedInCustomer);
+                    }
+                    break;
+                case 2:
+                    User registeredUser = accountService.register();
+                    if (registeredUser == null) {
+                        System.out.println("Dừng đăng ký tài khoản!!!");
+                        break;
+                    }
+                    System.out.println("Đăng ký tài khoản thành công, vui lòng đăng nhập để tiếp tục sử dụng phần mềm.");
+                    break;
+                case 3:
+                    return;
+            }
+        }
     }
-
     private void mainmenu(Account loggedInCustomer) {
     }
 
@@ -112,4 +141,4 @@ public class MainMenu {
         System.out.println("người dùng quản lý các sách đã chọn để mượn.");
         System.out.println("Thoát");
     }
-}       
+}
