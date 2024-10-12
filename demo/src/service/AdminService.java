@@ -1,12 +1,12 @@
-//// 3.Admin (Quản trị viên):
-//// - Đăng nhập hệ thống với quyền Admin.
-//// - Quản lý người dùng:
-//// + Xem danh sách người dùng: Xem danh sách tất cả người dùng và người quản lý trong hệ thống.
-//// + Tạo account quản lý: Cấp quyền người quản lý cho tài khoản người dùng mới.
-//// + Khóa/Mở khóa tài khoản: Khóa tài khoản người dùng hoặc người quản lý vi phạm quy định, mở khóa tài khoản nếu cần.
-////
-// - Thống kê và báo cáo: Thống kê số lượng sách mượn/trả, báo cáo người dùng.
-// - Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống
+// 3.Admin (Quản trị viên):
+//- Đăng nhập hệ thống với quyền Admin.
+//- Quản lý người dùng:
+//+ Xem danh sách người dùng:Tìm kiếm người dùng theo ten(email), Xem danh sách tất cả người dùng và người quản lý trong hệ thống.
+//+ Tạo account quản lý: Cấp quyền người quản lý cho tài khoản người dùng mới.
+//+ Quản lý trạng thái người dùng(Khóa/Mở khóa tài khoản): Khóa tài khoản người dùng hoặc người quản lý vi phạm quy định, mở khóa tài khoản nếu cần.
+
+//- Thống kê và báo cáo: Thống kê số lượng sách mượn/trả, báo cáo người dùng.
+//- Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống
 package service;
 
 import constant.Regex;

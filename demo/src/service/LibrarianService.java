@@ -4,16 +4,15 @@
 //- Quản lý mượn/trả sách: Xem danh sách mượn/trả sách, cập nhật trạng thái các giao dịch mượn/trả sách.
 //- Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống.
 
+
 package service;
-import constant.Regex;
-import constant.Status;
 import entities.Book;
 import util.FileUtil;
 import java.util.*;
-import entities.User;
+
 public class LibrarianService {
     public List<Book> books; // Khởi tạo danh sách books
-    private static final String BOOK_DATA_FILE = "books.jso";
+    private static final String BOOK_DATA_FILE = "books.json";
     private final FileUtil<Book> fileUtil = new FileUtil<>(); // Lưu toàn bộ danh sách sách
     private final Scanner scanner = new Scanner(System.in); // Giữ Scanner mở
     private List<Book> cart = new ArrayList<>(); // Giỏ sách của khách hàng
@@ -27,10 +26,11 @@ public class LibrarianService {
 
     //quản lí sach
     public void loadBooks() {
-        List<Book> loadedBooks = fileUtil.readDataFromFile(BOOK_DATA_FILE, Book[].class);
+        List<Book> loadedBooks;
+        loadedBooks = fileUtil.readDataFromFile(BOOK_DATA_FILE,Book[].class);
         if (loadedBooks != null) {
             books = loadedBooks;
-        } else {
+       // } else {
             books = new ArrayList<>(); // Nếu không có sách, khởi tạo danh sách trống
         }
     }

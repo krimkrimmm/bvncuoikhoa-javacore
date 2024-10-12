@@ -1,8 +1,6 @@
 package util;
 import com.google.gson.*;
 import constant.DateTimeConstant;
-import entities.Book;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -64,13 +62,12 @@ public class FileUtil<T> implements DataWritable<T>, DataReadable<T> {
         }
     }
     @Override
-    public List<T> readDataFromFile(String fileName, Class<Book[]> clazz) {
+    public List<T> readDataFromFile(String fileName, Class<T[]> clazz) {
         if (StringUtil.isNullOrEmpty(fileName)) {
             return null;
         }
-
         try (FileReader reader = new FileReader(fileName)) {
-            T[] dataArr = (T[]) gson.fromJson(reader, clazz);
+            T[] dataArr = gson.fromJson(reader, clazz);
             return dataArr == null ? null : new ArrayList<>(Arrays.asList(dataArr));
         } catch (IOException e) {
             e.printStackTrace();

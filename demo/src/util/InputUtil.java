@@ -1,13 +1,10 @@
 package util;
-
 import constant.CommonConstant;
-
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-public class InputUtil {
-
+public class InputUtil
+{
     public static int chooseOption(String message, String errorMessage, Integer minvalue, Integer maxValue) {
         System.out.print(message);
         int choice = -1;
@@ -57,3 +54,5 @@ public class InputUtil {
     }
 
 }
+
+

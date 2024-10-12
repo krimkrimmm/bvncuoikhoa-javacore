@@ -2,13 +2,14 @@
 // - Đăng ký tài khoản/Đăng nhập(Log in): Người dùng mới tạo tài khoản bằng cách nhập thông tin như tên, email, mật khẩu sau đó đăng nhập bằng tài khoản đã tạo.
 // - Xem danh sách sách: Xem, hiển thị các sách có sẵn, tìm kiếm sách theo từ khóa hoặc bộ lọc (tác giả, thể loại,…).
 // - Xem chi tiết sách: Xem thông tin chi tiết của sách: tên sách, tác giả, mã sách, nsx, số lượng sách, giá sách, trạng thái sách: trc va sau khi cho mượn.
-// - Thêm sách vào giỏ sách: Lựa chọn số lượng và thêm sách vào giỏ sách để mượn.
+//- Thêm sách vào giỏ sách: Lựa chọn số lượng và thêm sách vào giỏ sách để mượn.
 // - Xem giỏ sách: Xem danh sách các sách đã thêm vào giỏ sách, thay đổi số lượng hoặc xóa sách khỏi giỏ sách.
 
 // - Mượn/trả sách: Xác nhận mượn/trả sách và nhập thông tin giao nhận.
 // - Xem lịch sử mượn/trả sách: Xem danh sách các sách đã mượn/trả, bao gồm thông tin chi tiết về từng sách và trạng thái mượn
 // - Cập nhật tài khoản cá nhân: Thay đổi thông tin cá nhân như tên, địa chỉ email, mật khẩu.
 // - Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống.
+
 package service;
 import entities.Book;
 import entities.User;
