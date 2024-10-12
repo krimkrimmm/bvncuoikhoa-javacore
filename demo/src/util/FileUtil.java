@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-public class FileUtil<T> implements DataWritable<T>, DataReadable<Book> {
+public class FileUtil<T> implements DataWritable<T>, DataReadable<T> {
 
     private static final Gson gson = new GsonBuilder()
             .serializeNulls()
@@ -64,12 +64,13 @@ public class FileUtil<T> implements DataWritable<T>, DataReadable<Book> {
         }
     }
     @Override
-    public List<Book> readDataFromFile(String fileName, Class<Book[]> clazz) {
+    public List<T> readDataFromFile(String fileName, Class<Book[]> clazz) {
         if (StringUtil.isNullOrEmpty(fileName)) {
             return null;
         }
+
         try (FileReader reader = new FileReader(fileName)) {
-            Book[] dataArr = gson.fromJson(reader, clazz);
+            T[] dataArr = (T[]) gson.fromJson(reader, clazz);
             return dataArr == null ? null : new ArrayList<>(Arrays.asList(dataArr));
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,13 +79,3 @@ public class FileUtil<T> implements DataWritable<T>, DataReadable<Book> {
     }
 
 }
-
-
-
-
-
-
-
-
-
-

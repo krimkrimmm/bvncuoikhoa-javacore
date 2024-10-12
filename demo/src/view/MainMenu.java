@@ -23,38 +23,12 @@ public class MainMenu {
     }
 
     public void menu() {
-        while (true) {
-            System.out.println("==================================================================");
-            System.out.println("------- PHẦN MỀM QUẢN LÝ THƯ VỆN--------");
-            System.out.println("1. Đăng nhập");
-            System.out.println("2. Đăng ký");
-            System.out.println("3. Thoát");
 
-            int choice = InputUtil.chooseOption("Xin mời chọn chức năng",
-                    "Chức năng là số dương từ 1 tới 3, vui lòng nhập lại: ", 1, 3);
-
-            switch (choice) {
-                case 1:
-                    User loggedInCustomer = accountService.login();
-                    if (loggedInCustomer == null) {
-                        System.out.println("Login failed.");
-                    } else {
-                        mainmenu(loggedInCustomer);
-                    }
-                    break;
-                case 2:
-                    User registeredUser = accountService.register();
-                    if (registeredUser == null) {
-                        System.out.println("Dừng đăng ký tài khoản!!!");
-                        break;
-                    }
-                    System.out.println("Đăng ký tài khoản thành công, vui lòng đăng nhập để tiếp tục sử dụng phần mềm.");
-                    break;
-                case 3:
-                    return;
-            }
-        }
     }
+
+    private void mainmenu(Account loggedInCustomer) {
+    }
+
     // Xử lý Trang chủ
     public void mainmenu(User user) {
         System.out.println("==================================================================");
@@ -76,7 +50,7 @@ public class MainMenu {
         }
 
         System.out.println("7. Thoát");
-        int choice = InputUtil.chooseOption("Xin mời chọn chức năng", "Vui lòng nhập lại: ", 1, 7);
+        int choice = InputUtil.chooseOption("Xin mời chọn chức năng", "Vui lòng nhập lại: ", 1,7);
 
         switch (choice) {
             case 1:
@@ -92,7 +66,7 @@ public class MainMenu {
                 bookcart();
                 break;
             case 4:
-                customerMenu.menu();
+                customerMenu.menu(librarianService);
                 break;
             case 5:
                 if (!(user.getRole().equals(Role.LIBRARIAN) || user.getRole().equals(Role.ADMIN))) {
@@ -123,11 +97,19 @@ public class MainMenu {
     // Xử lý Trang sách
     public void managerbook(){
         System.out.println("====================");
-        System.out.println("");
+        System.out.println("Hiển thị chi tiết sách:");
+        System.out.println("hình ảnh");
+        System.out.println(" mô tả");
+        System.out.println("tác giả");
+        System.out.println("số lượng còn lại");
+        System.out.println("đánh giá từ người dùng");
+        System.out.println("Thoát");
     }
     // Xử lý Giỏ sách
     public void bookcart(){
         System.out.println("=====================");
-        System.out.println("");
+        System.out.println("người dùng xem các sách đã chọn để mượn.");
+        System.out.println("người dùng quản lý các sách đã chọn để mượn.");
+        System.out.println("Thoát");
     }
-}
+}       

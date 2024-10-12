@@ -4,6 +4,7 @@
 // - Xem chi tiết sách: Xem thông tin chi tiết của sách: tên sách, tác giả, mã sách, nsx, số lượng sách, giá sách, trạng thái sách: trc va sau khi cho mượn.
 // - Thêm sách vào giỏ sách: Lựa chọn số lượng và thêm sách vào giỏ sách để mượn.
 // - Xem giỏ sách: Xem danh sách các sách đã thêm vào giỏ sách, thay đổi số lượng hoặc xóa sách khỏi giỏ sách.
+
 // - Mượn/trả sách: Xác nhận mượn/trả sách và nhập thông tin giao nhận.
 // - Xem lịch sử mượn/trả sách: Xem danh sách các sách đã mượn/trả, bao gồm thông tin chi tiết về từng sách và trạng thái mượn
 // - Cập nhật tài khoản cá nhân: Thay đổi thông tin cá nhân như tên, địa chỉ email, mật khẩu.
@@ -29,7 +30,8 @@ public class CustomerService {
     private static final int MAX_LOGIN_TIMES = 5;
     private List<Book> cart = new ArrayList<>(); // Giỏ sách của khách hàng
     private List<Book> borrowedBooks = new ArrayList<>(); // Danh sách sách đã mượn
-    private List<Book> returnBooks = new ArrayList<>()//danh sach sach da tra ;
+    private List<Book> returnBooks = new ArrayList<>();//danh sach sach da tra ;
+    private int quantity;
 
     //Xem danh sách sách
     public CustomerService() {
@@ -86,7 +88,7 @@ public class CustomerService {
     // Thêm sách vào giỏ sách
     public void addBookToCart() {
         for (Book book : books) {
-            if (book.getCode().equalsIgnoreCase(bookCode) && book.isAvailable() && book.getQuantity() >= quantity) {
+            if (book.getIsbn().equalsIgnoreCase(book.getIsbn()) && book.isAvailable() && book.getQuantity() >= quantity) {
                 for (int i = 0; i < quantity; i++) {
                     cart.add(book);
                 }
@@ -128,14 +130,14 @@ public class CustomerService {
     // Trả sách
     public void returnBooks() {
         for (Book book : borrowedBooks) {
-            if (book.getCode().equalsIgnoreCase(bookCode)) {
+            if (book.getIsbn().equalsIgnoreCase(book.getIsbn())) {
                 borrowedBooks.remove(book);
                 book.setQuantity(book.getQuantity() + 1); // Tăng số lượng sách trong kho
                 System.out.println("Đã trả sách '" + book.getTitle() + "' thành công.");
                 return;
             }
         }
-        System.out.println("Không tìm thấy sách với mã: " + bookCode + " trong danh sách đã mượn.");
+        System.out.println("Không tìm thấy sách với mã: " + books + " trong danh sách đã mượn.");
     }
 
     // Xem lịch sử mượn sách
@@ -152,7 +154,8 @@ public class CustomerService {
 
     //Xem lịch sử trả sách
     public void viewReturnBooks() {
-        if (ReturnBooks.isEmpty()) {
+
+        if (returnBooks.isEmpty()) {
             System.out.println("Bạn chưa trả sách nào.");
             return;
         }

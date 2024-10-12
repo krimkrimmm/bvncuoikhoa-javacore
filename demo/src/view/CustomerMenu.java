@@ -15,17 +15,15 @@ import service.*;
 import util.InputUtil;
 
 public class CustomerMenu {
-    private final LibrarianService librarianService;
     private final CustomerService customerService;
     private final MainMenu mainMenu;  // Thay đổi để không khởi tạo MainMenu
 
     public CustomerMenu(CustomerService customerService, MainMenu mainMenu) {
         this.customerService = customerService;
-        this.librarianService = librarianService;
         this.mainMenu = mainMenu;  // Nhận MainMenu từ tham số
     }
 
-    public void menu() {
+    public void menu(LibrarianService librarianService) {
         while (true) {
             System.out.println("------- PHẦN MỀM QUẢN LÝ THƯ VIỆN --------");
             System.out.println("1. Xem danh sách sách");
@@ -41,7 +39,7 @@ public class CustomerMenu {
 
 
             int choice = InputUtil.chooseOption("Xin mời chọn chức năng: ",
-                    "Chức năng là số dương từ 1 tới 10 vui lòng nhập lại: ", 1, 10);
+                    "Chức năng là số dương từ 1 tới 10 vui lòng nhập lại: ", 1,10);
 
             switch (choice) {
                 case 1:

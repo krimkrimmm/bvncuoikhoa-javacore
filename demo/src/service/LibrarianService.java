@@ -2,7 +2,6 @@
 //- Đăng ký tài khoản/Đăng nhập: Người quản lý mới tạo tài khoản bằng cách nhập thông tin như tên, email, mật khẩu sau đó đăng nhập bằng tài khoản đã tạo.
 //- Quản lý sách: Thêm mới, chỉnh sửa hoặc xóa sách.
 //- Quản lý mượn/trả sách: Xem danh sách mượn/trả sách, cập nhật trạng thái các giao dịch mượn/trả sách.
-//- Quản lý người dùng: Xem thông tin người dùng và lịch sử mượn sách.
 //- Đăng xuất: Kết thúc phiên làm việc và đăng xuất khỏi hệ thống.
 
 package service;
@@ -11,20 +10,23 @@ import constant.Status;
 import entities.Book;
 import util.FileUtil;
 import java.util.*;
-
+import entities.User;
 public class LibrarianService {
     public List<Book> books; // Khởi tạo danh sách books
     private static final String BOOK_DATA_FILE = "books.jso";
     private final FileUtil<Book> fileUtil = new FileUtil<>(); // Lưu toàn bộ danh sách sách
     private final Scanner scanner = new Scanner(System.in); // Giữ Scanner mở
-    private List<>
+    private List<Book> cart = new ArrayList<>(); // Giỏ sách của khách hàng
+    private List<Book> borrowedBooks = new ArrayList<>(); // Danh sách sách đã mượn
+    private List<Book> returnBooks = new ArrayList<>();//danh sach sach da tra ;
 
     public LibrarianService() {
         this.books = new ArrayList<>(); // Khởi tạo danh sách trống
         loadBooks(); // Tải sách từ file khi khởi tạo
     }
 
-    private void loadBooks() {
+    //quản lí sach
+    public void loadBooks() {
         List<Book> loadedBooks = fileUtil.readDataFromFile(BOOK_DATA_FILE, Book[].class);
         if (loadedBooks != null) {
             books = loadedBooks;
@@ -160,85 +162,76 @@ public class LibrarianService {
         return false;
     }
 
+    // Xem danh sách mượn
+    public void viewBorrowedBooks() {
+        if (borrowedBooks.isEmpty()) {
+            System.out.println("No books have been borrowed.");
+        } else {
+            System.out.printf("%-20s %-20s %-15s%n", "Title", "Author", "ISBN");
+            System.out.println("----------------------------------------------------------");
+            for (Book book : borrowedBooks) {
+                System.out.printf("%-20s %-20s %-15s%n",
+                        book.getTitle(), book.getAuthor(), book.getIsbn());
+            }
+        }
+    }
+    //xem danh sách trả sach
+    public void viewReturnedBooks() {
+        if (borrowedBooks.isEmpty()) {
+            System.out.println("No books have been returned.");
+        } else {
+            System.out.printf("%-20s %-20s %-15s%n", "Title", "Author", "ISBN");
+            System.out.println("----------------------------------------------------------");
+            for (Book book : returnBooks) {
+                System.out.printf("%-20s %-20s %-15s%n",
+                        book.getTitle(), book.getAuthor(), book.getIsbn());
+            }
+        }
+    }
+    // Quản lý mượn sách
+    public void borrowBook() {
+        System.out.print("Enter ISBN of the book to borrow: ");
+        String isbn = scanner.nextLine();
+
+        for (Book book : books) {
+            if (book.getIsbn().equals(isbn) && book.getQuantity() > 0) {
+                borrowedBooks.add(book); // Thêm sách vào danh sách mượn
+                book.setQuantity(book.getQuantity() - 1); // Giảm số lượng sách
+                saveBookData(); // Lưu dữ liệu sách
+                System.out.println("Book borrowed successfully: " + book.getTitle());
+                return;
+            }
+        }
+        System.out.println("Book not available for borrowing.");
+    }
+
+    // Quản lý trả sách
+    public void returnBook() {
+        System.out.print("Enter ISBN of the book to return: ");
+        String isbn = scanner.nextLine();
+
+        Iterator<Book> iterator = borrowedBooks.iterator();
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
+            if (book.getIsbn().equals(isbn)) {
+                iterator.remove(); // Xóa khỏi danh sách mượn
+                book.setQuantity(book.getQuantity() + 1); // Tăng số lượng sách
+                saveBookData(); // Lưu dữ liệu sách
+                System.out.println("Book returned successfully: " + book.getTitle());
+                return;
+            }
+        }
+        System.out.println("This book was not borrowed.");
+    }
     // Lưu danh sách sách vào file
 
     public void saveBookData() {
         fileUtil.writeDataToFile(books, BOOK_DATA_FILE); // Lưu toàn bộ danh sách books
     }
 
-    //Xem danh sách mượn sách
-    public void viewBorrowedBooks() {
-        // Assuming you have a way to track borrowed books
-        System.out.println("Borrowed Books:");
-        // Here you'd retrieve and print the list of borrowed books from your data structure
-        // For example, you could have a list of borrowed transactions
-        // Just as an illustration:
-        if (borrowedBooks.isEmpty()) {
-            System.out.println("No books are currently borrowed.");
-        } else {
-            System.out.printf("%-20s %-20s %-15s%n", "Title", "Borrower", "Borrow Date");
-            System.out.println("------------------------------------------------");
-            for (BorrowedBookRecord record : borrowedBooks) {
-                System.out.printf("%-20s %-20s %-15s%n",
-                        record.getBookTitle(), record.getBorrowerName(), record.getBorrowDate());
-            }
-        }
+    // Đăng xuất
+    public void logout() {
+        System.out.println("You have been logged out.");
     }
-
-    //Xem danh sách trả sách
-    public void viewReturnedBooks() {
-        // Similar to the borrowed books method
-        System.out.println("Returned Books:");
-        if (returnedBooks.isEmpty()) {
-            System.out.println("No books have been returned.");
-        } else {
-            System.out.printf("%-20s %-20s %-15s%n", "Title", "Borrower", "Return Date");
-            System.out.println("------------------------------------------------");
-            for (ReturnedBookRecord record : returnedBooks) {
-                System.out.printf("%-20s %-20s %-15s%n",
-                        record.getBookTitle(), record.getBorrowerName(), record.getReturnDate());
-            }
-        }
-    }
-
-    //cập nhật trạng thái các giao dịch mượn sách
-    public boolean updateBorrowTransactionStatus() {
-        System.out.print("Enter ISBN of the borrowed book to update: ");
-        String isbn = scanner.nextLine();
-
-        // Find the transaction by ISBN
-        for (BorrowedBookRecord record : borrowedBooks) {
-            if (record.getBookIsbn().equals(isbn)) {
-                System.out.print("Enter new status (e.g., Returned): ");
-                String newStatus = scanner.nextLine();
-                record.setStatus(newStatus);
-                System.out.println("Transaction status updated successfully.");
-                return true;
-            }
-        }
-        System.out.println("No borrowed book found with ISBN: " + isbn);
-        return false;
-    }
-
-
-    //cập nhật trạng thái các giao dịch trả sách
-    public boolean updateReturnTransactionStatus() {
-        System.out.print("Enter ISBN of the returned book to update: ");
-        String isbn = scanner.nextLine();
-
-        // Find the return transaction by ISBN
-        for (ReturnedBookRecord record : returnedBooks) {
-            if (record.getBookIsbn().equals(isbn)) {
-                System.out.print("Enter new status (e.g., Available): ");
-                String newStatus = scanner.nextLine();
-                record.setStatus(newStatus);
-                System.out.println("Return transaction status updated successfully.");
-                return true;
-            }
-        }
-        System.out.println("No returned book found with ISBN: " + isbn);
-        return false;
-    }
-
 
 }
